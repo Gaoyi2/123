@@ -1,0 +1,64 @@
+代码的作用是使用深度学习模型 VGG16 提取图像的多个可能的语义描述，并使用预训练的自然语言处理模型（DistilBERT）对这些语义描述进行情感分类。
+
+具体步骤如下：
+
+1. 加载 VGG16 模型和预训练权重。VGG16 是一个用于图像分类的经典卷积神经网络模型。
+
+2. 加载 DistilBERT 情感分类模型和对应的 tokenizer。这个模型在 SST-2 数据集上进行了微调，用于进行情感分类。
+
+3. 定义一个函数 `extract_semantic_description()`，该函数接受一个图像文件路径作为输入，使用 VGG16 模型对图像进行预测，提取前几个最可能的类别作为图像的语义描述，并返回这些描述。
+
+4. 指定要处理的图像文件路径，调用 `extract_semantic_description()` 函数获取图像的多个语义描述。
+
+5. 将获取的多个语义描述组合成一个句子，前面加上 "A picture of "，以便进行情感分类。
+
+6. 使用情感分析管道对组合的语义描述进行情感分类，返回结果。
+
+```
+使用jupyter notebook  运行main函数
+```
+
+
+
+
+
+## 输出结果显示
+
+![cat](C:\Users\gzh\Desktop\image\cat.jpg)
+
+获取前几个最可能的类别及其概率：
+
+```
+Top Semantic Descriptions:
+bath_towel: 0.49837571382522583
+Egyptian_cat: 0.07177896052598953
+tabby: 0.04368782788515091
+Chihuahua: 0.026950838044285774
+Boston_bull: 0.020928602665662766
+```
+
+测试情感分类:
+语义：text = "I love this product!"
+
+结果：Sentiment: positive
+
+对图片主要语义提取，进行情感分类:
+
+```
+Semantic Description: bath_towel
+Sentiment Analysis Result: [{'label': 'POSITIVE', 'score': 0.6200490593910217}]
+```
+
+对图片提取多个语义组成句子，进行情感分类：
+
+```
+Semantic Descriptions: ['bath_towel', 'Egyptian_cat', 'tabby', 'Chihuahua', 'Boston_bull']
+Combined Semantic Description - Sentiment Analysis Result: [{'label': 'NEGATIVE', 'score': 0.779617190361023}]
+```
+
+
+
+
+
+
+
